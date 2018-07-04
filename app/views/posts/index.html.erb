@@ -1,0 +1,12 @@
+<h2>
+  Liste des Posts
+</h2>
+<%= link_to "Add", new_post_path %><br/>
+<%- @posts.each do |post| %>
+
+  <%= link_to post_path(post) do %>
+    <%= post.title %>
+  <%- end %>
+  <br />
+<%- end %>
+
