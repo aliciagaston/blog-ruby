@@ -1,12 +1,38 @@
-<h2>
-  Liste des Posts
-</h2>
-<%= link_to "Add", new_post_path %><br/>
-<%- @posts.each do |post| %>
+<div class="container">
+  <div style="margin: 1rem">
+    <h1 class="title is-1 is spaced">View Posts</h1>
+    <h2 class="subtitle">See the latest posts</h2>
+  </div>
+  <div style="margin: 1rem">
+    <%= link_to "Create a new post", new_post_path, class:"button is-primary is-outlined"%>
+  </div>
 
-  <%= link_to post_path(post) do %>
-    <%= post.title %>
+  <br/>
+
+  <%- @posts.each do |post| %>
+    <div class="box">
+      <article class="media">
+        <div class="media-left">
+          <figure class="image is-64x64">
+            <img src="https://bulma.io/images/placeholders/128x128.png" alt="Image">
+          </figure>
+        </div>
+        <div class="media-content">
+          <div class="content">
+            <p>
+              <strong><%= post.title %></strong> <small>by <%=post.user.fullName %></small> <small>31m</small>
+              <br>
+              <%= post.lead %>
+            </p>
+          </div>
+          <div>
+            <%= link_to post_path(post) do %>See more... <% end %></div>
+        </div>
+      </article>
+    </div>
   <%- end %>
-  <br />
-<%- end %>
+
+</div>
+
+
 

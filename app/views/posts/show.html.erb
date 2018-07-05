@@ -1,8 +1,9 @@
 Title : <%= @post.title %><br/>
 Lead : <%= @post.lead %><br/>
 Date : <%= @post.date %><br/>
-Image : <%= @post.image %><br/>
+Image : <%= @post.file %><br/>
 Content : <%= @post.content %><br/>
+Author : <%= @post.user.fullName %>
 
 <%= link_to "Edit", edit_post_path(@post) %>
 <%= link_to "Back", :posts %>

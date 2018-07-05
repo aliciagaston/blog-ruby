@@ -6,7 +6,7 @@ class PostsController < ApplicationController
   def authorized_attributes
     params
         .require(:post)
-        .permit(:title, :image, :lead, :date, :content)
+        .permit(:title, :file, :lead, :content)
   end
 
   def load_post
@@ -18,7 +18,13 @@ class PostsController < ApplicationController
   end
   def create
     @post = Post.new authorized_attributes
-    @post.save
-    redirect_to @post
+    @post.user = current_user
+    @post.date = Time.now
+    puts @posts.inspect
+    if @post.save
+      redirect_to @post
+    else
+      render "new"
+    end
   end
 end
