@@ -4,7 +4,9 @@
     <h2 class="subtitle">See the latest posts</h2>
   </div>
   <div style="margin: 1rem">
-    <%= link_to "Create a new post", new_post_path, class:"button is-primary is-outlined"%>
+    <%- if current_user %>
+      <%= link_to "Create a new post", new_post_path, class:"button is-primary is-outlined"%>
+    <% end %>
   </div>
 
   <br/>
@@ -14,13 +16,13 @@
       <article class="media">
         <div class="media-left">
           <figure class="image is-64x64">
-            <img src="https://bulma.io/images/placeholders/128x128.png" alt="Image">
+            <img src='<%= post.file.thumb %>' />
           </figure>
         </div>
         <div class="media-content">
           <div class="content">
             <p>
-              <strong><%= post.title %></strong> <small>by <%=post.user.fullName %></small> <small>31m</small>
+              <strong><%= post.title %></strong> <small>by <%=post.user.fullName %></small> <small><%=post.created_at.strftime('%F %H:%M') %></small>
               <br>
               <%= post.lead %>
             </p>
