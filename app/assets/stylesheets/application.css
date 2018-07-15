@@ -33,3 +33,9 @@
 .box {
     width: 68rem;
 }
+
+.post_buttons {
+    display: flex;
+    justify-content: center;
+    width: 64rem;
+}

@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
-  before_action :load_post, only: [:show, :edit, :destroy]
-  before_action :logged_in_user_equal_to_currentuser, only: [:edit, :destroy]
+  before_action :load_post, only: [:show, :edit, :destroy, :update]
+  before_action :logged_in_user_equal_to_currentuser, only: [:edit, :destroy, :update]
   before_action :logged_in_user, only: [:new]
 
   def authorized_attributes
@@ -24,11 +24,11 @@ class PostsController < ApplicationController
 
   def destroy
     @post.destroy
-    redirect_to @posts
+    redirect_to posts_index_path
   end
 
   def index
-    @posts = Post.all.order('id desc')
+    @posts = Post.all.order('id desc').paginate(:page => params[:page], :per_page => 5)
   end
 
   def load_post
@@ -52,15 +52,10 @@ class PostsController < ApplicationController
   end
 
   def update
-    if @post.user && @post.user == current_user
-      if @post.update authorized_attributes
-        redirect_to @post
-      else
-        render "edit"
-      end
+    if @post.update(authorized_attributes)
+      redirect_to @post
+    else
+      render "edit"
     end
-  else
-    redirect_to @post
   end
-
 end
